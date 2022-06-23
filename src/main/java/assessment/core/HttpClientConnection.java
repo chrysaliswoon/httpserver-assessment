@@ -1,33 +1,61 @@
 package assessment.core;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * this class handles the the request and
 response communication between the server and a client (browser)
  */
 
-public class HttpClientConnection {
+public class HttpClientConnection implements Runnable{
 
-    public static Integer PORT;
-    public static String IP = "localhost";
+    private Socket clientSocket;
+    private InputStream is;
+    private ObjectInputStream ois;
+    private OutputStream os;
+    private ObjectOutputStream oos;
 
-    public void start() {
+    public HttpClientConnection (Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public void run() {
         try {
-            Socket socket = new Socket(IP, PORT);
-            
-            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
-            BufferedReader reader = new BufferedReader(streamReader);
-
-            String readDocument = reader.readLine();
-            reader.close();
+            start();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void start() throws IOException {
+
+        /*Insert code for what the threads will do - Task 6*/
+    }
+
+    private String read() throws IOException {
+        return ois.readUTF();
+    }
+
+    private void write(String outputstream) throws IOException {
+        oos.writeUTF(outputstream);
+        oos.flush();
+    }
+
+    private void initializeStreams(Socket clientSocket) throws IOException {
+        is = clientSocket.getInputStream();
+        ois = new ObjectInputStream(is);
+        os = clientSocket.getOutputStream();
+        oos = new ObjectOutputStream(os);
+    }
+
+    private void close() throws IOException {
+        is.close();
+        os.close();
     }
 }

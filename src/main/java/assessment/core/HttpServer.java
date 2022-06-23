@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /*
 this is the main web server class
@@ -13,28 +15,34 @@ this is the main web server class
 
 public class HttpServer {
 
-    public static Integer PORT;
-    public static String IP = "localhost";
+    private Integer PORT;
+    private String IP = "localhost";
+    private String docRoot;
 
-    public void startServer(Integer PORT) {
+    public HttpServer(String path, Integer PORT) {
+        this.docRoot = path;
+        this.PORT = PORT;
+    }
+
+    public void start() {
+        ServerSocket server;
+        ExecutorService threadPool = Executors.newFixedThreadPool(3);
+
         try {
-            ServerSocket server = new ServerSocket(PORT);
+            server = new ServerSocket(PORT);
             System.out.printf("Web Server is starting up on " + IP + ", listening at port " + PORT + ". \n");
             System.out.printf("You can access http://" + IP + ":" + PORT + " now. \n");
 
             while (true) {
-                Socket socket = server.accept(); // Once a ServerSocket instance is created,
+                Socket clientSocket = server.accept(); // Once a ServerSocket instance is created,
                 System.out.printf("Connected to PORT: %d \n", PORT);
 
-                PrintWriter writer = new PrintWriter(socket.getOutputStream());
-                /*
-                 * Insert code to get info and print the info out
-                 */
-                writer.close();
-
+                HttpClientConnection clientConnection = new HttpClientConnection(clientSocket);
+                threadPool.execute(clientConnection);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
+            System.exit(1);
         }
     }
 }

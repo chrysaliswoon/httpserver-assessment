@@ -3,7 +3,8 @@ package assessment.core;
 import java.io.*;
 
 /**
- * this class writes the data from the client (HTML static page) to the Socket
+ * This class writes the data from the client (HTML static page) to the Socket. 
+ * There are two ways of writing the data. Either by writing strings or writing bytes
  */
 
 public class HttpWriter {

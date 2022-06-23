@@ -186,7 +186,7 @@ This is the Main Web Server class. It makes a ServerSocket and waits for Client 
    - When a Client finally tries to connect, the method returns a Socket (on a different part) that knows how to communicate with the client. (i.e. knows the Client's IP address and port number). 
    - The Socket is on a different port than the ServerSocket, so the ServerSocket can go back to waiting for other clients.
 
-- ServerSocket makes the server application "listen" for client requests on a specific port on the machine this code is running on
+- Opens a TCP connection using the ServerSocket, and makes the server application "listen" for client requests on a specific port on the machine this code is running on.
 ```java
     ServerSocket server = new ServerSocket(PORT);
 ```

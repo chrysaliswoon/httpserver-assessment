@@ -8,8 +8,27 @@ package assessment.core;
 public class Main 
 {
     public static void main( String[] args )
+    
     {
-        Session session = new Session();
-        session.start(args);
+        String docRoot = args[0];
+        Integer PORT = Integer.parseInt(args[1]);
+
+        HttpServer server = new HttpServer(docRoot, PORT);
+        server.start();
+
+        // switch (args.length) {
+        //     case 0:
+        //         PORT = 3000;
+        //         server.start(PORT);
+        //         break;
+
+        //     case 2:
+        //         if (args[0].contains("--port")) {
+        //             PORT = Integer.parseInt(args[1]);
+        //             server.start(PORT);
+        //         }
+        //         break;
+
+        // }
     }
 }
