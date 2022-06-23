@@ -177,12 +177,12 @@ The steps 1 to 5 can be repeated for each new client. And each new connection sh
 
 ### HTTP Server
 
+- ServerSocket makes the server application "listen" for client requests on a specific port on the machine this code is running on
 ```java
     ServerSocket server = new ServerSocket(PORT);
 ```
-- ServerSocket makes the server application "listen" for client requests on a specific port on the machine this code is running on
 
-
+- Server goes into a permanent loop, waitinf for (and servicing) client requests
 ```java
     while (true) {
         .
@@ -191,15 +191,14 @@ The steps 1 to 5 can be repeated for each new client. And each new connection sh
     }
 
 ```
-- Server goes into a permanent loop, waitinf for (and servicing) client requests
 
-
+- The accept method blocks (just sits there) until a request comes in, and then the method returns a Socket (on a port) for communicating with the client
 ```java
     Socket socket = server.accept();
 ```
-- The accept method blocks (just sits there) until a request comes in, and then the method returns a Socket (on a port) for communicating with the client
 
-
+- We use the Socket connection to the client to make a PrintWriter and send it. 
+- We then close the Socket as we are done with the client
 ```java
     PrintWriter writer = new PrintWriter(socket.getOutputStream());
     /*
@@ -207,8 +206,6 @@ The steps 1 to 5 can be repeated for each new client. And each new connection sh
     */
     writer.close();
 ```
-- We use the Socket connection to the client to make a PrintWriter and send it. 
-- We then close the Socket as we are done with the client
 
 
 ### HTTP Client Connection
