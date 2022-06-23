@@ -1,7 +1,9 @@
 package assessment.core;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -24,10 +26,15 @@ public class HttpServer {
                 Socket socket = server.accept(); // Once a ServerSocket instance is created,
                 System.out.printf("Connected to PORT: %d \n", PORT);
 
+                PrintWriter writer = new PrintWriter(socket.getOutputStream());
+                /*
+                 * Insert code to get info and print the info out
+                 */
+                writer.close();
+
             }
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }

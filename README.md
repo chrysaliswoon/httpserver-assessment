@@ -22,7 +22,7 @@
 
 Web server should accept the following command line options when starting:
 
-- [] if port is not specified, it will default to port 3000
+- [X] if port is not specified, it will default to port 3000
   
 ```
 --port <port number>
@@ -40,7 +40,7 @@ Web server should accept the following command line options when starting:
 java -cp
 ```
 
-- [] start the server on port 8080; docRoot directory is ./target
+- [X] start the server on port 8080; docRoot directory is ./target
 
 ```
 java -cp ./myserver.jar --port 8080
@@ -171,9 +171,58 @@ The steps 3 and 4 can be repeated many times depending on the protocol agreed be
 The steps 1 to 5 can be repeated for each new client. And each new connection should be handled by a separate thread.
 
 
+## Breakdown of codes in class files
+
+### Session
+
+### HTTP Server
+
+```java
+    ServerSocket server = new ServerSocket(PORT);
+```
+- ServerSocket makes the server application "listen" for client requests on a specific port on the machine this code is running on
+
+
+```java
+    while (true) {
+        .
+        .
+        .
+    }
+
+```
+- Server goes into a permanent loop, waitinf for (and servicing) client requests
+
+
+```java
+    Socket socket = server.accept();
+```
+- The accept method blocks (just sits there) until a request comes in, and then the method returns a Socket (on a port) for communicating with the client
+
+
+```java
+    PrintWriter writer = new PrintWriter(socket.getOutputStream());
+    /*
+    * Insert code to get info and print the info out
+    */
+    writer.close();
+```
+- We use the Socket connection to the client to make a PrintWriter and send it. 
+- We then close the Socket as we are done with the client
+
+
+### HTTP Client Connection
+
+
+### HTTP Writer
+
+
+
 ## Terminal Commands
 
+```
 - java -cp ./target/httpserver-1.0-SNAPSHOT.jar assessment.core.Main
+```
 
 ### Resources:
 - https://www.codejava.net/java-se/networking/java-socket-server-examples-tcp-ip
