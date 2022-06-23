@@ -12,14 +12,13 @@ this is the main web server class
 public class HttpServer {
 
     public static Integer PORT;
-    // public static String startServerMsg = "Web Server is starting up, listening at port " + PORT + ". \n";
-    // public static String accessServerMsg = "You can access http://localhost:" + PORT + " now.";
+    public static String IP = "localhost";
 
     public void startServer(Integer PORT) {
         try {
             ServerSocket server = new ServerSocket(PORT);
-            System.out.println("Web Server is starting up, listening at port " + PORT + ".");
-            System.out.println("You can access http://localhost:" + PORT + " now.");
+            System.out.printf("Web Server is starting up on " + IP + ", listening at port " + PORT + ". \n");
+            System.out.printf("You can access http://" + IP + ":" + PORT + " now. \n");
 
             while (true) {
                 Socket socket = server.accept(); // Once a ServerSocket instance is created,

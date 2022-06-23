@@ -1,0 +1,25 @@
+body {
+    background-color: lavender;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+div {
+    align-items: center;
+    justify-content: center;
+}
+
+
+.heroImage {
+    /* Set a specific height */
+    height: 50%;
+  
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    text-align: center;
+}
+
