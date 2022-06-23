@@ -176,6 +176,15 @@ The steps 1 to 5 can be repeated for each new client. And each new connection sh
 ### Session
 
 ### HTTP Server
+This is the Main Web Server class. It makes a ServerSocket and waits for Client requests. When it gets a Client request, the Server makes a new Socket connection to that Client. The Server makes a PrintWriter (using the Socket's output stream) and sends a message to the client.
+
+**How it works**
+1. The Server application makes a ServerSocket, on a specific port. This starts the server application to listen for Client requests coming in from that port number.
+2. The Client then makes a Socket connection to the Server application using an IP address and TCP port. 
+3. The Server makes a new Socket to communicate with this Client using an accept() method. 
+   - The accept() method blocks (just sits there) while it's waiting for a Client Socket connection. 
+   - When a Client finally tries to connect, the method returns a Socket (on a different part) that knows how to communicate with the client. (i.e. knows the Client's IP address and port number). 
+   - The Socket is on a different port than the ServerSocket, so the ServerSocket can go back to waiting for other clients.
 
 - ServerSocket makes the server application "listen" for client requests on a specific port on the machine this code is running on
 ```java
@@ -210,6 +219,18 @@ The steps 1 to 5 can be repeated for each new client. And each new connection sh
 
 ### HTTP Client Connection
 
+- Makes a Socket connection to whatever is running on the PORT on the same host this code is running in, which in this case, is the localhost
+```java
+    Socket socket = new Socket(IP, PORT);
+```
+
+- Chain a BufferedReader to an InputStreamReader to the input stream from the Socket
+```java
+    InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
+    BufferedReader reader = new BufferedReader(streamReader);
+```
+
+- 
 
 ### HTTP Writer
 
@@ -222,6 +243,7 @@ The steps 1 to 5 can be repeated for each new client. And each new connection sh
 ```
 
 ### Resources:
+- Head First Java Book
 - https://www.codejava.net/java-se/networking/java-socket-server-examples-tcp-ip
 - https://javarevisited.blogspot.com/2015/06/how-to-create-http-server-in-java-serversocket-example.html#axzz7WpITPG4F
 
