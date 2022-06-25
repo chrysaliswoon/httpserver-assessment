@@ -5,7 +5,6 @@ import java.io.File;
 public class FileRepo {
 
     private File fileName;
-    private HttpServer server;
     private Integer PORT;
     private String docRoot;
 
@@ -16,13 +15,20 @@ public class FileRepo {
     }
 
     public void checkFile() {
-        boolean isExist = fileName.exists();
-        System.out.println(fileName.getAbsolutePath() + " is exist? = " + isExist);
-        if (isExist) {
-            System.out.println(("Starting server"));
-            server = new HttpServer(docRoot, PORT);
-            server.start();
+        boolean dirExist = fileName.isDirectory();
+        boolean canRead = fileName.canRead();
+
+
+        // System.out.println(fileName.getAbsolutePath() + " is exist? = " + isExist);
+        if (dirExist && canRead) {
+            System.out.println(("Starting server on PORT " + PORT));
         } else {
+            if (dirExist == false) {
+                System.out.println(("Directory does not exist"));
+            } else {
+                System.out.println(("File cannot be read by the server"));
+            }
+            System.out.println(("Shutting down server"));
             System.exit(1);
         }
     }

@@ -25,6 +25,8 @@ public class HttpServer {
     }
 
     public void start() {
+        FileRepo files = new FileRepo(docRoot, PORT);
+        files.checkFile();
         ServerSocket server;
         ExecutorService threadPool = Executors.newFixedThreadPool(3);
         

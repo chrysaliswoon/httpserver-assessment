@@ -67,12 +67,12 @@ java -cp ./myserver.jar --port 8080
 When HTTP server starts, perform the following:
 
 - [X] Open a TCP connection and listen on the port from the port option
-- [] Check each of the docRoot path; for each path verify that
-  - [] path exists
-  - [] path is a directory
-  - [] path is readable by the server
+- [X] Check each of the docRoot path; for each path verify that
+  - [X] path exists
+  - [X] path is a directory
+  - [X] path is readable by the server
 
-- [] If any of the above conditions fail, print the failure reason on the console, stop the server and exit the program with System.exit(1).
+- [X] If any of the above conditions fail, print the failure reason on the console, stop the server and exit the program with System.exit(1).
 
 ### Task 5 - Completed
 

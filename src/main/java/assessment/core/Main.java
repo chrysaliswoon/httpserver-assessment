@@ -11,7 +11,7 @@ public class Main {
     {
         String docRoot;
         Integer PORT;
-        // HttpServer server;
+        HttpServer server;
 
         if (args.length == 0) {
             docRoot = "./target";
@@ -26,7 +26,7 @@ public class Main {
             docRoot = args[0].replace("--docRoot", "");
             PORT = 3000;
         }
-        FileRepo files = new FileRepo(docRoot, PORT);
-        files.checkFile();
+        server = new HttpServer(docRoot, PORT);
+        server.start();
     }
 }
