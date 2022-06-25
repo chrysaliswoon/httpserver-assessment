@@ -16,13 +16,15 @@ response communication between the server and a client (browser)
 public class HttpClientConnection implements Runnable{
 
     private Socket clientSocket;
+    private String clientRequest;
     private InputStream is;
     private ObjectInputStream ois;
     private OutputStream os;
     private ObjectOutputStream oos;
 
-    public HttpClientConnection (Socket clientSocket) {
+    public HttpClientConnection (String clientRequest, Socket clientSocket) {
         this.clientSocket = clientSocket;
+        this.clientRequest = clientRequest;
     }
 
     public void run() {

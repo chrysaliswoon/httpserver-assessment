@@ -36,8 +36,9 @@ public class HttpServer {
             while (true) {
                 Socket clientSocket = server.accept(); // Once a ServerSocket instance is created,
                 System.out.printf("Connected to PORT: %d \n", PORT);
+                String req = "";
 
-                HttpClientConnection clientConnection = new HttpClientConnection(clientSocket);
+                HttpClientConnection clientConnection = new HttpClientConnection(req, clientSocket);
                 threadPool.execute(clientConnection);
             }
         } catch (IOException ex) {

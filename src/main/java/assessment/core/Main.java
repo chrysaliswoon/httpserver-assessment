@@ -5,30 +5,33 @@ package assessment.core;
  *
  */
 
-public class Main 
-{
-    public static void main( String[] args )
-    
+public class Main {
+    public static void main(String[] args)
+
     {
-        String docRoot = args[0];
-        Integer PORT = Integer.parseInt(args[1]);
+        String docRoot;
+        Integer PORT;
+        HttpServer server;
 
-        HttpServer server = new HttpServer(docRoot, PORT);
+        // FileRepo files = new FileRepo("./target");
+        // files.checkFile();
+
+        if (args.length == 0) {
+            docRoot = "./target";
+            PORT = 3000; 
+        } else if (args.length == 2){
+            docRoot = "./target";
+            PORT = Integer.parseInt(args[1]);
+        } else if (args.length > 0 && args[0].contains("--port")) {
+            docRoot = args[2].replace("--docRoot", "");
+            PORT = Integer.parseInt(args[1]);
+        } else {
+            docRoot = args[0].replace("--docRoot", "");
+            PORT = 3000;
+        }
+
+        System.out.println(docRoot);
+        server = new HttpServer(docRoot, PORT);
         server.start();
-
-        // switch (args.length) {
-        //     case 0:
-        //         PORT = 3000;
-        //         server.start(PORT);
-        //         break;
-
-        //     case 2:
-        //         if (args[0].contains("--port")) {
-        //             PORT = Integer.parseInt(args[1]);
-        //             server.start(PORT);
-        //         }
-        //         break;
-
-        // }
     }
 }

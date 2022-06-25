@@ -1,13 +1,13 @@
 ## Assessment Tasks
 
-### Task 1
+### Task 1 - Completed
 
 - [X] Generate a Maven project
 - [X] Create a remote git repo.
 - [X] Add link to the Maven project to a remote git repo
 - [X] Perform an initial commit and push of your project
 
-### Task 2
+### Task 2 - Completed
 
 **HTTP Folder**
 
@@ -18,26 +18,26 @@
 **Root**
 - [X] Main: Starting class to execute the HTTP server with the 'java -jar' option
 
-### Task 3
+### Task 3 - Completed
 
 Web server should accept the following command line options when starting:
 
-- [X] if port is not specified, it will default to port 3000
+- if port is not specified, it will default to port 3000
   
 ```
 --port <port number>
 ```
 
-- [] one or more directories where the HTML, CSS and JS files and images are stored. If not specified, default to static directory in the current path
+- one or more directories where the HTML, CSS and JS files and images are stored. If not specified, default to static directory in the current path
   
 ```
 --docRoot <colon delimited list of directories>
 ```
 
-- [] start the server on port 3000; docRoot directory is ./target
+- [X] start the server on port 3000; docRoot directory is ./target
 
 ```
-java -cp
+java -cp ./myserver.jar 
 ```
 
 - [X] start the server on port 8080; docRoot directory is ./target
@@ -47,14 +47,14 @@ java -cp ./myserver.jar --port 8080
 ```
 
 
-- [] start the server on port 3000; the docRoot directories will be ./target and /opt/tmp/www
+- [X] start the server on port 3000; the docRoot directories will be ./target and /opt/tmp/www
 
 ```
  java -cp ./myserver.jar --docRoot ./target:/opt/tmp/www
 ```
 
 
-- [] start the server on port 8080; docRoot directories will be ./target and /opt/tmp/www
+- [X] start the server on port 8080; docRoot directories will be ./target and /opt/tmp/www
 
 ```
  java -cp ./myserver.jar --port 8080 --docRoot 
@@ -74,13 +74,13 @@ When HTTP server starts, perform the following:
 
 - [] If any of the above conditions fail, print the failure reason on the console, stop the server and exit the program with System.exit(1).
 
-### Task 5
+### Task 5 - Completed
 
 - [X] Create a thread pool with 3 threads
 - [X] Server will listen on the specified port
 - [X] Server will accept incoming connections from the browser
-- [] When new connection is established, this connection should be handled by a thread from the threadpool.
-- [] Main control thread (server) should go back to waiting for new incoming connections
+- [X] When new connection is established, this connection should be handled by a thread from the threadpool.
+- [X] Main control thread (server) should go back to waiting for new incoming connections
 
 
 ### Task 6
