@@ -11,10 +11,7 @@ public class Main {
     {
         String docRoot;
         Integer PORT;
-        HttpServer server;
-
-        // FileRepo files = new FileRepo("./target");
-        // files.checkFile();
+        // HttpServer server;
 
         if (args.length == 0) {
             docRoot = "./target";
@@ -29,9 +26,7 @@ public class Main {
             docRoot = args[0].replace("--docRoot", "");
             PORT = 3000;
         }
-
-        System.out.println(docRoot);
-        server = new HttpServer(docRoot, PORT);
-        server.start();
+        FileRepo files = new FileRepo(docRoot, PORT);
+        files.checkFile();
     }
 }

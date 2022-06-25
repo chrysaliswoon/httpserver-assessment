@@ -15,19 +15,19 @@ this is the main web server class
 
 public class HttpServer {
 
-    private Integer PORT;
     private String IP = "localhost";
+    private Integer PORT;
     private String docRoot;
 
-    public HttpServer(String path, Integer PORT) {
-        this.docRoot = path;
+    public HttpServer(String docRoot, Integer PORT) {
+        this.docRoot = docRoot;
         this.PORT = PORT;
     }
 
     public void start() {
         ServerSocket server;
         ExecutorService threadPool = Executors.newFixedThreadPool(3);
-
+        
         try {
             server = new ServerSocket(PORT);
             System.out.printf("Web Server is starting up on " + IP + ", listening at port " + PORT + ". \n");
@@ -43,7 +43,6 @@ public class HttpServer {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-            System.exit(1);
         }
     }
 }
