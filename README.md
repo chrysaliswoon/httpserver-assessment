@@ -62,7 +62,7 @@ java -cp ./myserver.jar --port 8080
 ```
 
 
-### Task 4
+### Task 4 - Completed
 
 When HTTP server starts, perform the following:
 
@@ -113,7 +113,7 @@ HTTP/1.1 404 Not Found\r\n
 
 **Action 3 - Resource exist**
 
-- [] If resource is found in any of the docRoot directories, send the resource contens as bytes back to the client in the following response
+- [] If resource is found in any of the docRoot directories, send the resource contents as bytes back to the client in the following response
 
 ```
 HTTP/1.1 200 OK\r\n

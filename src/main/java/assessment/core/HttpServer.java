@@ -38,12 +38,14 @@ public class HttpServer {
             while (true) {
                 Socket clientSocket = server.accept(); // Once a ServerSocket instance is created,
                 System.out.printf("Connected to PORT: %d \n", PORT);
-                String req = "";
+                // String req = "";
 
-                HttpClientConnection clientConnection = new HttpClientConnection(req, clientSocket);
+                HttpClientConnection clientConnection = new HttpClientConnection(docRoot, clientSocket);
                 threadPool.execute(clientConnection);
+            
             }
         } catch (IOException ex) {
+            System.err.println("Server error, exiting");
             ex.printStackTrace();
         }
     }
