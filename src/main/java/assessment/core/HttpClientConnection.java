@@ -47,7 +47,6 @@ public class HttpClientConnection implements Runnable {
     }
 
     public void start() throws IOException {
-        System.out.println("Loading contents of URL: " + server);
 
         // ? Create input and output streams to read from and write to the server
         PrintStream out = new PrintStream(socket.getOutputStream());
@@ -55,20 +54,29 @@ public class HttpClientConnection implements Runnable {
 
         // ? Read data from server
         String line = in.readLine();
-        System.out.println(line);
+        // System.out.println(line);
 
-            if (line.contains("GET")) {
+        String[] lineArr = null; // ? Declare empty string array
+        lineArr = line.split(" "); // ? Convert using String.split() method
+        String path = lineArr[1].replace("/", "");
+
+        if (line.contains("GET")) {
+            if (path.isEmpty()) {
                 String htmlPath = "./static/index.html";
                 String htmlContent = Files.readString(Paths.get(htmlPath));
                 httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + htmlContent;
                 socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
-            } else if (line.contains("png")){
-                String cssPath = "./static/coding.png";
-                String cssContent = Files.readString(Paths.get(cssPath));
-                httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + cssContent;
+            } else {
+                String htmlPath = "./static/" + path;
+                String htmlContent = Files.readString(Paths.get(htmlPath));
+                httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + htmlContent;
                 socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
             }
 
+        } else {
+            httpResponse = "HTTP/1.1 405 METHOD\r\n\r\n";
+            socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+        }
 
         // ? Close the streams
         in.close();
