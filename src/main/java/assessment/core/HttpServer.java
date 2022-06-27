@@ -36,11 +36,11 @@ public class HttpServer {
             System.out.printf("You can access http://" + IP + ":" + PORT + " now. \n");
 
             while (true) {
-                Socket clientSocket = server.accept(); // Once a ServerSocket instance is created,
+                Socket socket = server.accept(); // Once a ServerSocket instance is created,
                 System.out.printf("Connected to PORT: %d \n", PORT);
                 // String req = "";
 
-                HttpClientConnection clientConnection = new HttpClientConnection(docRoot, clientSocket);
+                HttpClientConnection clientConnection = new HttpClientConnection(docRoot, socket);
                 threadPool.execute(clientConnection);
             
             }

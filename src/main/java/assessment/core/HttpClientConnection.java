@@ -21,17 +21,17 @@ response communication between the server and a client (browser)
 
 public class HttpClientConnection implements Runnable{
 
-    private Socket clientSocket;
-    private String clientRequest;
+    private Socket socket;
+    private String server;
     private InputStream is;
     private ObjectInputStream ois;
     private OutputStream os;
     private ObjectOutputStream oos;
     private String httpResponse;
 
-    public HttpClientConnection (String clientRequest, Socket clientSocket) throws IOException {
-        this.clientRequest = clientRequest;
-        this.clientSocket = clientSocket;
+    public HttpClientConnection (String server, Socket socket) throws IOException {
+        this.server = server;
+        this.socket = socket;
     }
 
     public void run() {
@@ -43,24 +43,24 @@ public class HttpClientConnection implements Runnable{
     }
 
     public void start() throws IOException {
-        System.out.println("Received a connection from server");
+        System.out.println("Loading contents of URL: " + server);
 
         //? Create input and output streams to read from and write to the server
-        PrintStream out = new PrintStream(clientSocket.getOutputStream());
-        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        PrintStream out = new PrintStream(socket.getOutputStream());
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 
         //? Read data from server
         String line = in.readLine();
+        System.out.println(line);
 
         while (line != null) {
             if (line.contains("GET")) {
                 String test = 
                 "<h1>Test</h1>"
                 ;
-                // line = in.readLine();
                 httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + test;
-                clientSocket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+                socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
             } else {
                 httpResponse = "HTTP/1.1 405 Method Not Allowed\r\n\r\n";
             }
@@ -69,7 +69,7 @@ public class HttpClientConnection implements Runnable{
         //? Close the streams
         in.close();
         out.close();
-        clientSocket.close();
+        socket.close();
     }
 
     private String read() throws IOException {
@@ -81,10 +81,10 @@ public class HttpClientConnection implements Runnable{
         oos.flush();
     }
 
-    private void initializeStreams(Socket clientSocket) throws IOException {
-        is = clientSocket.getInputStream();
+    private void initializeStreams(Socket socket) throws IOException {
+        is = socket.getInputStream();
         ois = new ObjectInputStream(is);
-        os = clientSocket.getOutputStream();
+        os = socket.getOutputStream();
         oos = new ObjectOutputStream(os);
     }
 
