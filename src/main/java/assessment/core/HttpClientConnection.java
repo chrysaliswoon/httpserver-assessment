@@ -1,6 +1,7 @@
 package assessment.core;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,12 +15,15 @@ import java.net.Socket;
 import java.net.http.HttpResponse;
 import java.util.Date;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * this class handles the the request and
-response communication between the server and a client (browser)
+ * response communication between the server and a client (browser)
  */
 
-public class HttpClientConnection implements Runnable{
+public class HttpClientConnection implements Runnable {
 
     private Socket socket;
     private String server;
@@ -29,7 +33,7 @@ public class HttpClientConnection implements Runnable{
     private ObjectOutputStream oos;
     private String httpResponse;
 
-    public HttpClientConnection (String server, Socket socket) throws IOException {
+    public HttpClientConnection(String server, Socket socket) throws IOException {
         this.server = server;
         this.socket = socket;
     }
@@ -45,28 +49,28 @@ public class HttpClientConnection implements Runnable{
     public void start() throws IOException {
         System.out.println("Loading contents of URL: " + server);
 
-        //? Create input and output streams to read from and write to the server
+        // ? Create input and output streams to read from and write to the server
         PrintStream out = new PrintStream(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-
-        //? Read data from server
+        // ? Read data from server
         String line = in.readLine();
         System.out.println(line);
 
-        while (line != null) {
             if (line.contains("GET")) {
-                String test = 
-                "<h1>Test</h1>"
-                ;
-                httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + test;
+                String htmlPath = "./static/index.html";
+                String htmlContent = Files.readString(Paths.get(htmlPath));
+                httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + htmlContent;
                 socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
-            } else {
-                httpResponse = "HTTP/1.1 405 Method Not Allowed\r\n\r\n";
+            } else if (line.contains("png")){
+                String cssPath = "./static/coding.png";
+                String cssContent = Files.readString(Paths.get(cssPath));
+                httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + cssContent;
+                socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
             }
-        }
 
-        //? Close the streams
+
+        // ? Close the streams
         in.close();
         out.close();
         socket.close();

@@ -13,8 +13,6 @@ public class Main {
         Integer PORT;
         HttpServer server;
 
-        System.out.println(args[0]);
-
         if (args.length == 0) {
             docRoot = "./target";
             PORT = 3000; 
