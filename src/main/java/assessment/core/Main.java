@@ -14,10 +14,10 @@ public class Main {
         HttpServer server;
 
         if (args.length == 0) {
-            docRoot = "./target";
+            docRoot = "./static";
             PORT = 3000; 
         } else if (args.length == 2){
-            docRoot = "./target";
+            docRoot = "./static";
             PORT = Integer.parseInt(args[1]);
         } else if (args.length > 0 && args[0].contains("--port")) {
             docRoot = args[2].replace("--docRoot", "");

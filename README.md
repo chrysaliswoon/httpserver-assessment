@@ -90,7 +90,7 @@ Client thread (handling the client connection) should perform the following task
 
 **Action 1 - Not a GET Method**
 
-- [] If the request method is NOT a GET method, it will send the following response back to the client:
+- [X] If the request method is NOT a GET method, it will send the following response back to the client:
 ```
 HTTP/1.1 405 Method Not Allowed \r\n
 \r\n
