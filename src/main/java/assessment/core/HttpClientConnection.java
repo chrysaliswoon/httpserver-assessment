@@ -42,7 +42,8 @@ public class HttpClientConnection implements Runnable {
     private String path;
     private String content;
     private String method;
-    private BufferedImage bi;
+    private BufferedReader in;
+    private PrintStream out;
 
     public HttpClientConnection(String docRoot, Socket socket) throws IOException {
         this.docRoot = docRoot;
@@ -62,8 +63,8 @@ public class HttpClientConnection implements Runnable {
         // System.out.println("Loading contents of path: " + docRoot);
 
         // ? Create input and output streams to read from and write to the server
-        PrintStream out = new PrintStream(socket.getOutputStream());
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintStream(socket.getOutputStream());
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         // ImageIO.write(bi, "png", socket.getOutputStream());
         // BufferedImage image = null;
         // File inputImage = new File(path);
@@ -97,27 +98,31 @@ public class HttpClientConnection implements Runnable {
                     httpResponse = "HTTP/1.1 200 OK\r\n" + "Content-Type: image/png\r\n\r\n";
                     socket.getOutputStream().write(httpResponse.getBytes());
                     socket.getOutputStream().write(imageContent);
+                    close();
 
 
                 } else if (fileType.equals("html") || fileType.equals("css")){
                     content = Files.readString(Paths.get(path));
                     httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + content;
                     socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+                    close();
                 } else {
                     httpResponse = "HTTP/1.1 404 Not Found\r\n\r\n" + path + " not found\r\n";
                     socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+                    close();
                 }
 
             } else {
                 httpResponse = "HTTP/1.1 405 METHOD\r\n\r\n" + method + " not supported\r\n";
                 socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+                close();
             }
         // }
 
-        // ? Close the streams
-        in.close();
-        out.close();
-        socket.close();
+        // // ? Close the streams
+        // in.close();
+        // out.close();
+        // socket.close();
 
     }
 
@@ -137,8 +142,9 @@ public class HttpClientConnection implements Runnable {
     //     oos = new ObjectOutputStream(os);
     // }
 
-    // private void close() throws IOException {
-    //     is.close();
-    //     os.close();
-    // }
+    private void close() throws IOException {
+        in.close();
+        out.close();
+        socket.close();
+    }
 }

@@ -96,11 +96,11 @@ HTTP/1.1 405 Method Not Allowed \r\n
 \r\n
 <method name> not supported\r\n
 ```
-- [] Close the connection and exit the thread 
+- [X] Close the connection and exit the thread 
 
 **Action 2 - Resources does not exist**
 
-- [] If the requested resource is not found, send the following back to the client:
+- [X] If the requested resource is not found, send the following back to the client:
 
 ```
 HTTP/1.1 404 Not Found\r\n
@@ -108,12 +108,12 @@ HTTP/1.1 404 Not Found\r\n
 <resource name> not found\r\n
 ```
 
-- [] Close the connection and exit the thread 
-- [] If resource name is /, replace it with /index.html before performing the file search
+- [X] Close the connection and exit the thread 
+- [X] If resource name is /, replace it with /index.html before performing the file search
 
 **Action 3 - Resource exist**
 
-- [] If resource is found in any of the docRoot directories, send the resource contents as bytes back to the client in the following response
+- [X] If resource is found in any of the docRoot directories, send the resource contents as bytes back to the client in the following response
 
 ```
 HTTP/1.1 200 OK\r\n
@@ -121,11 +121,11 @@ HTTP/1.1 200 OK\r\n
 <resource contents as bytes>
 ```
 
-- [] Close the connection and exit the thread 
+- [X] Close the connection and exit the thread 
 
 **Action 4 - Resources exist and is a PNG image**
 
-- [] If the resource exits and the name ends with a .png suffix, then the resource is a PNG image. Send the following response back to the client
+- [X] If the resource exits and the name ends with a .png suffix, then the resource is a PNG image. Send the following response back to the client
 
 ```
 HTTP/1.1 200 OK\r\n
@@ -134,7 +134,7 @@ Content-Type: image/png\r\n
 <resource contents as bytes>
 ```
 
-- [] Close the connection and exit the thread 
+- [X] Close the connection and exit the thread 
 
 
 ### Task 7
@@ -149,9 +149,9 @@ Content-Type: image/png\r\n
   - [X] Image, text and link must be positioned in the center (horizontally and vertically) of the browser's viewport(window)
   - [X] Image should remain at the center when the browser's window is resized
   
-- [] Run HTTP server and test if can access the HTML document from the browser:
-  - [] http://localhost:3000
-  - [] http://localhost:3000/index.html
+- [X] Run HTTP server and test if can access the HTML document from the browser:
+  - [X] http://localhost:3000
+  - [X] http://localhost:3000/index.html
 
 
 
