@@ -93,11 +93,11 @@ public class HttpClientConnection implements Runnable {
                     fileType = URL.substring(i + 1);
                 }
                 if (fileType.equals("png")) {
-                    // File outputImage = new File(path);
-                    // ImageIO.write(image, "png", outputImage);
-                    // BufferedImage image = ImageIO.read(socket.getInputStream());
-                    httpResponse = "HTTP/1.1 200 OK\r\nContent-Type: image/png\r\n\r\n" ;
-                    socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
+                    byte[] imageContent = Files.readAllBytes(Paths.get(path));
+                    httpResponse = "HTTP/1.1 200 OK\r\n" + "Content-Type: image/png\r\n\r\n";
+                    socket.getOutputStream().write(httpResponse.getBytes());
+                    socket.getOutputStream().write(imageContent);
+
 
                 } else if (fileType.equals("html") || fileType.equals("css")){
                     content = Files.readString(Paths.get(path));
